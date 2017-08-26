@@ -1,5 +1,6 @@
-import { connect } from 'react-redux'
-import BudgetList from '../components/BudgetList'
+import { connect } from 'react-redux';
+import {setCurrentBudget, addBudgetItem} from '../actions';
+import BudgetList from '../components/BudgetList';
 
 // const getVisibleTodos = (todos, filter) => {
 //   switch (filter) {
@@ -19,16 +20,20 @@ const mapStateToProps = state => {
   };
 };
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     onTodoClick: id => {
-//       dispatch(toggleTodo(id))
-//     }
-//   }
-// }
+const mapDispatchToProps = dispatch => {
+  return {
+    onBudgetClick: id => {
+      dispatch(setCurrentBudget(id));
+    },
+    onAddBudget: (name, amount, currentBudget) => {
+      dispatch(addBudgetItem(name, amount, currentBudget))
+    }
+  };
+};
 
 const SingleBudgetList = connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(BudgetList)
 
 export default SingleBudgetList;
