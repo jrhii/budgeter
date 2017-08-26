@@ -4,6 +4,14 @@ import './App.css';
 import SingleBudgetList from './containers/SingleBudgetList';
 
 class App extends Component {
+  // constructor() {
+  //   super(props);
+
+  //   this.state = {
+  //     currentBudgetId : null,
+  //   }
+  // }
+
   render() {
     return (
       <div className="App">
@@ -11,7 +19,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-        <SingleBudgetList />
+        <SingleBudgetList/>
       </div>
     );
   }

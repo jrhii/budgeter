@@ -2,14 +2,18 @@ import React from 'react'
 import PropTypes from 'prop-types'
 // import Todo from './Todo'
 
-const BudgetList = ({ budgetItems }) => (
+const BudgetList = ({ budgetItems, currentBudget }) => (
   <ul>
-    {budgetItems.map(budgetItem => (
-      <div>
-          <p>{budgetItem.name}</p>
-          <p>{budgetItem.amount}</p>
-      </div>
-    ))}
+    {
+      budgetItems
+        .filter(budgetItem => budgetItem.parentBudget === currentBudget)
+        .map(budgetItem => (
+          <div>
+              <p>{budgetItem.name}</p>
+              <p>{budgetItem.amount}</p>
+          </div>
+        ))
+    }
   </ul>
 )
 

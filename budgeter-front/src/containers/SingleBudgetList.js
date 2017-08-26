@@ -14,9 +14,10 @@ import BudgetList from '../components/BudgetList'
 
 const mapStateToProps = state => {
   return {
-    budgetItems: state.budgetItems
-  }
-}
+    budgetItems: state.budgetItems,
+    currentBudget: state.miscStore.currentBudget,
+  };
+};
 
 // const mapDispatchToProps = dispatch => {
 //   return {
@@ -30,4 +31,4 @@ const SingleBudgetList = connect(
   mapStateToProps
 )(BudgetList)
 
-export default SingleBudgetList
+export default SingleBudgetList;

@@ -1,45 +1,33 @@
 import { ADD_BUDGET_ITEM, DELETE_BUDGET_ITEM, EDIT_BUDGET_ITEM } from '../constants/ActionTypes'
 
 const initialState = [
-  {
-      name: 'Total Budget',
-      amount: 5000.00,
-      parentBudget: -1,
-    id: 0,
-  },
-  {
-      name: 'Paycheck',
-      amount: 5000.00,
-      parentBudget: 0,
-      id: 0,
-  }
 ]
 
-export default function todos(state = initialState, action) {
+export default function budgetItems(state = initialState, action) {
   switch (action.type) {
       case ADD_BUDGET_ITEM:
           return [
               ...state,
               {
-                  id: state.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
+                  id: state.reduce((maxId, budgetItem) => Math.max(budgetItem.id, maxId), -1) + 1,
                   name: action.name,
                   amount: action.amount,
                   parentBudget: action.parentBudget,
               }
           ]
       case DELETE_BUDGET_ITEM:
-        return state.filter(todo =>
-            todo.id !== action.id
+        return state.filter(budgetItem =>
+            budgetItem.id !== action.id
         )
       case EDIT_BUDGET_ITEM:
-        return state.map(todo =>
-            todo.id === action.id ?
-            { ...todo, 
+        return state.map(budgetItem =>
+            budgetItem.id === action.id ?
+            { ...budgetItem, 
                 name: action.name,
                 amount: action.amount,
                 parentBudget: action.parentBudget,
             } :
-            todo
+            budgetItem
         )
 
     default:
