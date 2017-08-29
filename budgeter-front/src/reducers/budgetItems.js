@@ -1,7 +1,12 @@
 import { ADD_BUDGET_ITEM, DELETE_BUDGET_ITEM, EDIT_BUDGET_ITEM } from '../constants/ActionTypes'
 
-const initialState = [
-]
+const initialState = [{
+    id: 0,
+    name: 'Total Budget',
+    amount: 0,
+    parentBudget: null,
+},
+];
 
 export default function budgetItems(state = initialState, action) {
   switch (action.type) {

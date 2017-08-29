@@ -1,5 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
+import BudgetItem from './BudgetItem';
 // import Todo from './Todo'
 
 class BudgetList extends React.Component {
@@ -12,25 +13,53 @@ class BudgetList extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onClickParent = this.onClickParent.bind(this);
+  }
+
+  static propTypes = {
+    budgetItems: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        amount: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        //parentBudget: PropTypes.number.isRequired,
+      }).isRequired
+    ).isRequired,
+    //currentBudget: PropTypes.number.isRequired,
+    onBudgetClick: PropTypes.func.isRequired,
+    onAddBudget: PropTypes.func.isRequired,
   }
 
   onChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   }
 
   onSubmit(event){
-    this.props.onAddBudget(this.state.name, this.state.amount, this.props.currentBudget);
+    this.props.onAddBudget(this.state.name, parseInt(this.state.amount, 10), this.props.currentBudget);
     event.preventDefault();
+  }
+
+  onClickParent(event) {
+    event.preventDefault();
+    if (event.target.value)
+      this.props.onBudgetClick(parseInt(event.target.value, 10));
   }
   
   render() {
-    const {budgetItems, currentBudget} = this.props;
+    const {budgetItems, currentBudget, onBudgetClick} = this.props;
+    const thisBudget = this.props.budgetItems.find(budgetItem => budgetItem.id === this.props.currentBudget);
 
     return (
       <div>
-        <form onSubmit={this.onSubmit}>.
+        <div>
+          {thisBudget && thisBudget.name}
+          <span>
+            <button onClick={this.onClickParent} value={thisBudget && thisBudget.parentBudget}>Go to Parent Budget</button>
+          </span>
+        </div>
+        <form onSubmit={this.onSubmit}>
           Name:
           <input type="text" name="name" value={this.state.name} onChange={this.onChange}/>
           Amount:
@@ -42,27 +71,13 @@ class BudgetList extends React.Component {
             budgetItems
               .filter(budgetItem => budgetItem.parentBudget === currentBudget)
               .map(budgetItem => (
-                <div>{budgetItem.name}</div>
+                <BudgetItem key={budgetItem.id} budgetItem={budgetItem} onBudgetClick={onBudgetClick}/>
               ))
           }
         </ul>
       </div>
     )
   }
-}
-
-BudgetList.propTypes = {
-  budgetItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      amount: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      parentBudget: PropTypes.number.isRequired,
-    }).isRequired
-  ).isRequired,
-  currentBudget: PropTypes.number.isRequired,
-  onBudgetClick: PropTypes.func,
-  onAddBudget: PropTypes.func,
 }
 
 export default BudgetList

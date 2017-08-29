@@ -5,7 +5,12 @@ describe('budget Items reducer', () => {
   test('should handle intitial state', () => {
     expect(
       budgetItems(undefined, {})
-    ).toEqual([
+    ).toEqual([{
+      id: 0,
+      name: 'Total Budget',
+      amount: 0,
+      parentBudget: null,
+  },
     ])
   })
 
@@ -17,7 +22,12 @@ describe('budget Items reducer', () => {
         amount: 100,
         parentBudget: null,
       })
-    ).toEqual([
+    ).toEqual([{
+      id: 0,
+      name: 'Total Budget',
+      amount: 0,
+      parentBudget: null,
+  },
       {
         name: 'test start',
         amount: 100,

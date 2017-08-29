@@ -34,6 +34,6 @@ const mapDispatchToProps = dispatch => {
 const SingleBudgetList = connect(
   mapStateToProps,
   mapDispatchToProps
-)(BudgetList)
+)(BudgetList);
 
 export default SingleBudgetList;
