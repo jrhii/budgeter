@@ -8,8 +8,9 @@ describe('budget Items reducer', () => {
     ).toEqual([{
       id: 0,
       name: 'Total Budget',
-      amount: 0,
-      parentBudget: null,
+      initialAmount: 1000,
+      currentAmount: 1000,
+      parentBudget: -1,
   },
     ])
   })
@@ -19,19 +20,15 @@ describe('budget Items reducer', () => {
       budgetItems([], {
         type: types.ADD_BUDGET_ITEM,
         name: 'test start',
-        amount: 100,
-        parentBudget: null,
+        initialAmount: 100,
+        parentBudget: -1,
       })
-    ).toEqual([{
-      id: 0,
-      name: 'Total Budget',
-      amount: 0,
-      parentBudget: null,
-  },
+    ).toEqual([
       {
         name: 'test start',
-        amount: 100,
-        parentBudget: null,
+        initialAmount: 100,
+        currentAmount: 100,
+        parentBudget: -1,
         id: 0,
       }
     ])
@@ -40,26 +37,29 @@ describe('budget Items reducer', () => {
       budgetItems([
         {
             name: 'test start',
-            amount: 100,
-            parentBudget: null,
+            initialAmount: 100,
+            currentAmount: 100,
+            parentBudget: -1,
             id: 0,
         }
       ], {
         type: types.ADD_BUDGET_ITEM,
         name: 'test charge',
-        amount: -25,
+        initialAmount: -25,
         parentBudget: 0,
       })
     ).toEqual([
         {
             name: 'test start',
-            amount: 100,
-            parentBudget: null,
+            initialAmount: 100,
+            currentAmount: 75,
+            parentBudget: -1,
             id: 0,
         },
         {
             name: 'test charge',
-            amount: -25,
+            initialAmount: -25,
+            currentAmount: -25,
             parentBudget: 0,
             id: 1,
         }
@@ -71,13 +71,15 @@ describe('budget Items reducer', () => {
       budgetItems([
         {
             name: 'test start',
-            amount: 100,
-            parentBudget: null,
+            initialAmount: 100,
+            currentAmount: 75,
+            parentBudget: -1,
             id: 0,
         },
         {
             name: 'test charge',
-            amount: -25,
+            initialAmount: -25,
+            currentAmount: -25,
             parentBudget: 0,
             id: 1,
         }
@@ -88,8 +90,9 @@ describe('budget Items reducer', () => {
     ).toEqual([
         {
             name: 'test start',
-            amount: 100,
-            parentBudget: null,
+            initialAmount: 100,
+            currentAmount: 100,
+            parentBudget: -1,
             id: 0,
         }
     ])
@@ -100,33 +103,37 @@ describe('budget Items reducer', () => {
       budgetItems([
         {
             name: 'test start',
-            amount: 100,
-            parentBudget: null,
+            initialAmount: 100,
+            currentAmount: 75,
+            parentBudget: -1,
             id: 0,
         },
         {
             name: 'test charge',
-            amount: -25,
+            initialAmount: -25,
+            currentAmount: -25,
             parentBudget: 0,
             id: 1,
         }
       ], {
         type: types.EDIT_BUDGET_ITEM,
         name: 'test fund',
-        amount: 35,
+        initialAmount: 35,
         parentBudget: 0,
         id: 1,
       })
     ).toEqual([
         {
             name: 'test start',
-            amount: 100,
-            parentBudget: null,
+            initialAmount: 100,
+            currentAmount: 135,
+            parentBudget: -1,
             id: 0,
         },
         {
             name: 'test fund',
-            amount: 35,
+            initialAmount: 35,
+            currentAmount:35,
             parentBudget: 0,
             id: 1,
         }

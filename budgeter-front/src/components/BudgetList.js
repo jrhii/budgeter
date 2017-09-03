@@ -51,22 +51,26 @@ class BudgetList extends React.Component {
     const {budgetItems, currentBudget, onBudgetClick} = this.props;
     const thisBudget = this.props.budgetItems.find(budgetItem => budgetItem.id === this.props.currentBudget);
 
+    //const budgetChildren = filterChildren();
+    //buildDetails();
+
     return (
       <div>
-        <div>
-          {thisBudget && thisBudget.name}
+        <div className="budget-details">
+          <p id="budget-name">{thisBudget && thisBudget.name}</p>
+          <p id="budget-amount">{thisBudget && thisBudget.amount}</p>
           <span>
             <button onClick={this.onClickParent} value={thisBudget && thisBudget.parentBudget}>Go to Parent Budget</button>
           </span>
         </div>
-        <form onSubmit={this.onSubmit}>
+        <form className="add-item" onSubmit={this.onSubmit}>
           Name:
           <input type="text" name="name" value={this.state.name} onChange={this.onChange}/>
           Amount:
           <input type="text" name="amount" value={this.state.amount} onChange={this.onChange}/>
           <input type="submit" value="Add Budget" />
         </form>
-        <ul>
+        <ul className="budget-list">
           {
             budgetItems
               .filter(budgetItem => budgetItem.parentBudget === currentBudget)
