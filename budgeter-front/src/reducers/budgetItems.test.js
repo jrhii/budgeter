@@ -11,7 +11,8 @@ describe('budget Items reducer', () => {
       initialAmount: 1000,
       currentAmount: 1000,
       parentBudget: -1,
-  },
+      canHaveChildren: true,
+    },
     ])
   })
 
@@ -22,6 +23,7 @@ describe('budget Items reducer', () => {
         name: 'test start',
         initialAmount: 100,
         parentBudget: -1,
+        canHaveChildren: true,
       })
     ).toEqual([
       {
@@ -29,6 +31,7 @@ describe('budget Items reducer', () => {
         initialAmount: 100,
         currentAmount: 100,
         parentBudget: -1,
+        canHaveChildren: true,
         id: 0,
       }
     ])
@@ -36,65 +39,72 @@ describe('budget Items reducer', () => {
     expect(
       budgetItems([
         {
-            name: 'test start',
-            initialAmount: 100,
-            currentAmount: 100,
-            parentBudget: -1,
-            id: 0,
+          name: 'test start',
+          initialAmount: 100,
+          currentAmount: 100,
+          parentBudget: -1,
+          id: 0,
+          canHaveChildren: true,
         }
       ], {
-        type: types.ADD_BUDGET_ITEM,
+          type: types.ADD_BUDGET_ITEM,
+          name: 'test charge',
+          initialAmount: -25,
+          parentBudget: 0,
+          canHaveChildren: false,
+        })
+    ).toEqual([
+      {
+        name: 'test start',
+        initialAmount: 100,
+        currentAmount: 75,
+        parentBudget: -1,
+        id: 0,
+        canHaveChildren: true,
+      },
+      {
         name: 'test charge',
         initialAmount: -25,
+        currentAmount: -25,
         parentBudget: 0,
-      })
-    ).toEqual([
-        {
-            name: 'test start',
-            initialAmount: 100,
-            currentAmount: 75,
-            parentBudget: -1,
-            id: 0,
-        },
-        {
-            name: 'test charge',
-            initialAmount: -25,
-            currentAmount: -25,
-            parentBudget: 0,
-            id: 1,
-        }
-    ]) 
+        id: 1,
+        canHaveChildren: false,
+      }
+    ])
   })
 
   test('should handle DELETE_BUDGET_ITEM', () => {
     expect(
       budgetItems([
         {
-            name: 'test start',
-            initialAmount: 100,
-            currentAmount: 75,
-            parentBudget: -1,
-            id: 0,
+          name: 'test start',
+          initialAmount: 100,
+          currentAmount: 75,
+          parentBudget: -1,
+          id: 0,
+          canHaveChildren: true,
         },
         {
-            name: 'test charge',
-            initialAmount: -25,
-            currentAmount: -25,
-            parentBudget: 0,
-            id: 1,
+          name: 'test charge',
+          initialAmount: -25,
+          currentAmount: -25,
+          parentBudget: 0,
+          id: 1,
+          canHaveChildren: false,
         }
       ], {
-        type: types.DELETE_BUDGET_ITEM,
-        id: 1
-      })
+          type: types.DELETE_BUDGET_ITEM,
+          id: 1
+        })
     ).toEqual([
-        {
-            name: 'test start',
-            initialAmount: 100,
-            currentAmount: 100,
-            parentBudget: -1,
-            id: 0,
-        }
+      {
+        name: 'test start',
+        initialAmount: 100,
+        currentAmount: 100,
+        parentBudget: -1,
+        id: 0,
+        canHaveChildren: true,
+      }
     ])
   })
 
@@ -102,41 +112,46 @@ describe('budget Items reducer', () => {
     expect(
       budgetItems([
         {
-            name: 'test start',
-            initialAmount: 100,
-            currentAmount: 75,
-            parentBudget: -1,
-            id: 0,
+          name: 'test start',
+          initialAmount: 100,
+          currentAmount: 75,
+          parentBudget: -1,
+          id: 0,
+          canHaveChildren: true,
         },
         {
-            name: 'test charge',
-            initialAmount: -25,
-            currentAmount: -25,
-            parentBudget: 0,
-            id: 1,
+          name: 'test charge',
+          initialAmount: -25,
+          currentAmount: -25,
+          parentBudget: 0,
+          id: 1,
+          canHaveChildren: true,
         }
       ], {
-        type: types.EDIT_BUDGET_ITEM,
+          type: types.EDIT_BUDGET_ITEM,
+          name: 'test fund',
+          initialAmount: 35,
+          parentBudget: 0,
+          id: 1,
+          canHaveChildren: true,
+        })
+    ).toEqual([
+      {
+        name: 'test start',
+        initialAmount: 100,
+        currentAmount: 135,
+        parentBudget: -1,
+        id: 0,
+        canHaveChildren: true,
+      },
+      {
         name: 'test fund',
         initialAmount: 35,
+        currentAmount: 35,
         parentBudget: 0,
         id: 1,
-      })
-    ).toEqual([
-        {
-            name: 'test start',
-            initialAmount: 100,
-            currentAmount: 135,
-            parentBudget: -1,
-            id: 0,
-        },
-        {
-            name: 'test fund',
-            initialAmount: 35,
-            currentAmount:35,
-            parentBudget: 0,
-            id: 1,
-        }
+        canHaveChildren: true,
+      }
     ])
   })
 })

@@ -6,6 +6,7 @@ const initialState = [{
     initialAmount: 1000,
     currentAmount: 1000,
     parentBudget: -1,
+    canHaveChildren: true,
 },
 ];
 
@@ -26,40 +27,43 @@ function rebuildAmountField(budgetId, budgetList) {
 
 export default function budgetItems(state = initialState, action) {
     let budgetList = {}
-  switch (action.type) {
-      case ADD_BUDGET_ITEM:
-        budgetList = [
-              ...state,
-              {
-                  id: state.reduce((maxId, budgetItem) => Math.max(budgetItem.id, maxId), -1) + 1,
-                  name: action.name,
-                  initialAmount: action.initialAmount,
-                  currentAmount: action.initialAmount,
-                  parentBudget: action.parentBudget,
-              }
-          ];
+    switch (action.type) {
+        case ADD_BUDGET_ITEM:
+            budgetList = [
+                ...state,
+                {
+                    id: state.reduce((maxId, budgetItem) => Math.max(budgetItem.id, maxId), -1) + 1,
+                    name: action.name,
+                    initialAmount: action.initialAmount,
+                    currentAmount: action.initialAmount,
+                    parentBudget: action.parentBudget,
+                    canHaveChildren: action.canHaveChildren,
+                }
+            ];
 
-          return rebuildAmountField(action.parentBudget, budgetList);
-      case DELETE_BUDGET_ITEM:
-        const deletedBudget = state.find((budgetItem) => budgetItem.id === action.id);
-        budgetList = state.filter((budgetItem) => budgetItem.id !== action.id);
+            return rebuildAmountField(action.parentBudget, budgetList);
+        case DELETE_BUDGET_ITEM:
+            const deletedBudget = state.find((budgetItem) => budgetItem.id === action.id);
+            budgetList = state.filter((budgetItem) => budgetItem.id !== action.id);
 
-        return rebuildAmountField(deletedBudget.parentBudget, budgetList);
-      case EDIT_BUDGET_ITEM:
-        budgetList = state.map(budgetItem =>
-            budgetItem.id === action.id ?
-            { ...budgetItem, 
-                name: action.name,
-                initialAmount: action.initialAmount,
-                currentAmount: action.currentAmount,
-                parentBudget: action.parentBudget,
-            } :
-            budgetItem
-        );
+            return rebuildAmountField(deletedBudget.parentBudget, budgetList);
+        case EDIT_BUDGET_ITEM:
+            budgetList = state.map(budgetItem =>
+                budgetItem.id === action.id ?
+                    {
+                        ...budgetItem,
+                        name: action.name,
+                        initialAmount: action.initialAmount,
+                        currentAmount: action.currentAmount,
+                        parentBudget: action.parentBudget,
+                        canHaveChildren: action.canHaveChildren,
+                    } :
+                    budgetItem
+            );
 
-        return rebuildAmountField(action.id, budgetList);
+            return rebuildAmountField(action.id, budgetList);
 
-    default:
-      return state
-  }
+        default:
+            return state
+    }
 }
