@@ -1,13 +1,13 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import ReactDOM from 'react-dom';
-import {Body} from './Body';
+import RootBudgetHeader from './RootBudgetHeader';
 // import {createStore} from 'redux';
 // import reducer from './reducers';
 // import {Provider} from 'react-redux';
 
 function setup() {
-    const currentBudget = {
+    const rootBudget = {
         id: 1,
         name: 'Sub Budget',
         initialAmount: 1000,
@@ -23,26 +23,27 @@ function setup() {
         parentBudgetId: -1,
         canHaveChildren: true,
     }];
-    const setCurrentBudget = id => {
+    const selectBudget = id => {
         console.log('budget set to ', id);
     };
     const editBudget = (id, name, amount) => {
         console.log(`Editing budget '${name}'`);
     };
 
-    const enzymeWrapper = mount(<Body currentBudget={currentBudget} parentBudgetArray={parentBudgetArray} setCurrentBudget={setCurrentBudget} editBudget={editBudget}/>);
+    const enzymeWrapper = mount(<RootBudgetHeader rootBudget={rootBudget} parentBudgetArray={parentBudgetArray} selectBudget={selectBudget} editBudget={editBudget}/>);
+
 
     return {
         enzymeWrapper,
     };
 }
  
-describe('Body', () => {
+describe('RootBudgetHeader', () => {
     test('renders correctly', () => {
         const { enzymeWrapper } = setup();
         
-        expect(enzymeWrapper.find('div.body').exists()).toBeTruthy();
-        expect(enzymeWrapper.find('RootBudgetHeader').exists()).toBeTruthy();
-        expect(enzymeWrapper.find('ChildBudgetList').exists()).toBeTruthy();
+        expect(enzymeWrapper.find('div.root-budget-header').exists()).toBeTruthy();
+        // expect(enzymeWrapper.find('RootBudgetHeader').exists()).toBeTruthy();
+        // expect(enzymeWrapper.find('ChildBudgetList').exists()).toBeTruthy();
     });
 });

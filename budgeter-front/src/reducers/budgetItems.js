@@ -23,7 +23,7 @@ function rebuildAmountField(budgetId, budgetList) {
     parent.currentAmount = currentAmount;
 
     return rebuildAmountField(parent.parentBudgetId, budgetList);
-};
+}
 
 export default function budgetItems(state = initialState, action) {
     let budgetList = {}
@@ -54,9 +54,6 @@ export default function budgetItems(state = initialState, action) {
                         ...budgetItem,
                         name: action.name,
                         initialAmount: action.initialAmount,
-                        currentAmount: action.currentAmount,
-                        parentBudgetId: action.parentBudgetId,
-                        canHaveChildren: action.canHaveChildren,
                     } :
                     budgetItem
             );
