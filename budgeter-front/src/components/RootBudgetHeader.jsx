@@ -66,7 +66,7 @@ class RootBudgetHeader extends Component {
                 <div className="root-budget">
                     <p id="root-budget-name">Current Budget: {rootBudget.name}</p>
                     <p id="root-budget-init-amount">Total Funds: {rootBudget.initialAmount}</p>
-                    <p id="root-budget-current-amount">Unalotted Funds: {rootBudget.currentAmount}</p>
+                    <p id="root-budget-current-amount">Unalloted Funds: {rootBudget.currentAmount}</p>
                     <button id="root-budget-edit" key={rootBudget.id} onClick={this.toggleEditBox}>Edit</button>
                 </div>
                 {

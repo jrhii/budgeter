@@ -43,7 +43,7 @@ describe('RootBudgetHeader', () => {
         expect(enzymeWrapper.find('div.root-budget').exists()).toBeTruthy();
         expect(enzymeWrapper.find('p#root-budget-name').text()).toBe('Current Budget: Sub Budget');
         expect(enzymeWrapper.find('p#root-budget-init-amount').text()).toBe('Total Funds: 1000');
-        expect(enzymeWrapper.find('p#root-budget-current-amount').text()).toBe('Unalotted Funds: 1000');
+        expect(enzymeWrapper.find('p#root-budget-current-amount').text()).toBe('Unallotted Funds: 1000');
         expect(enzymeWrapper.find('button#root-budget-edit').key()).toBe('1');
     });
 
