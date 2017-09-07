@@ -23,12 +23,8 @@ function setup() {
         parentBudgetId: -1,
         canHaveChildren: true,
     }];
-    const setCurrentBudget = id => {
-        console.log('budget set to ', id);
-    };
-    const editBudget = (id, name, amount) => {
-        console.log(`Editing budget '${name}'`);
-    };
+    const setCurrentBudget = jest.fn();
+    const editBudget = jest.fn();
 
     const enzymeWrapper = mount(<Body currentBudget={currentBudget} parentBudgetArray={parentBudgetArray} setCurrentBudget={setCurrentBudget} editBudget={editBudget}/>);
 

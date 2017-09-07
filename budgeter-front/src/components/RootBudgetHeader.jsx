@@ -43,7 +43,6 @@ class RootBudgetHeader extends Component {
 
     toggleEditBox(event) {
         this.setState(prevState => ({renderEditBox : !prevState.renderEditBox}));
-        event.preventDefault();
     }
 
     render() {
@@ -72,7 +71,7 @@ class RootBudgetHeader extends Component {
                 </div>
                 {
                     this.state.renderEditBox ? 
-                        <div className="root-budget-edit-box">EDIT BOX HERE</div> :
+                        <div id="root-budget-edit-box">EDIT BOX HERE</div> :
                         null
                 }
             </div>
