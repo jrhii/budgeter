@@ -1,7 +1,7 @@
 import { SET_CURRENT_BUDGET } from '../constants/ActionTypes'
 
 const initialState = {
-    currentBudget : 0,
+    currentBudgetId : 0,
 };
 
 export default function miscStore(state = initialState, action) {
@@ -9,7 +9,7 @@ export default function miscStore(state = initialState, action) {
         case SET_CURRENT_BUDGET:
             return {
                 ...state,
-                currentBudget: action.currentBudget,
+                currentBudgetId: action.currentBudgetId,
             };
         default:
             return state;

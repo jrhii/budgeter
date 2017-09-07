@@ -9,11 +9,11 @@ describe('actions', () => {
             type: types.ADD_BUDGET_ITEM,
             name: 'test child',
             initialAmount: 1000,
-            parentBudget: -1,
+            parentBudgetId: -1,
             canHaveChildren: true,
         }
         );
-    })
+    });
 
     test('should addBudgetItem', () => {
         expect(
@@ -22,13 +22,13 @@ describe('actions', () => {
             type: types.ADD_BUDGET_ITEM,
             name: 'test item',
             initialAmount: -25,
-            parentBudget: 2,
+            parentBudgetId: 2,
             canHaveChildren: false,
         });
         // expect(
         //     actions.addBudgetItem('test item', -25, -1)
         // ).toThrowError();
-    })
+    });
 
     test('should editBudget', () => {
         expect(
@@ -39,7 +39,7 @@ describe('actions', () => {
             name: "test edit",
             initialAmount: 35,
         });
-    })
+    });
 
     test('should deleteBudget', () => {
         expect(
@@ -48,14 +48,14 @@ describe('actions', () => {
             type: types.DELETE_BUDGET_ITEM,
             id: 2,
         });
-    })
+    });
 
     test('should setCurrentBudget', () => {
         expect(
             actions.setCurrentBudget(3)
         ).toEqual({
             type: types.SET_CURRENT_BUDGET,
-            currentBudget: 3,
+            currentBudgetId: 3,
         })
     })
 })

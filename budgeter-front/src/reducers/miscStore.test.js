@@ -6,17 +6,17 @@ describe('miscStore reducer', () => {
         expect(
             miscStore(undefined, {})
         ).toEqual({
-            currentBudget: 0,
+            currentBudgetId: 0,
         });
     });
 
     test('should handle changeState', () => {
         expect(
-            miscStore({currentBudget: 0}, {
+            miscStore({ currentBudgetId: 0 }, {
                 type: types.SET_CURRENT_BUDGET,
-                currentBudget: 2,
+                currentBudgetId: 2,
             })).toEqual({
-                currentBudget: 2,
+                currentBudgetId: 2,
             });
     });
 });

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-class RootBudget extends Component {
+class RootBudgetHeader extends Component {
     render() {
         return (
             <div />
-        )
+        );
     }
-};
+}
 
-export default RootBudget;
+export default RootBudgetHeader;

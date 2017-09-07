@@ -10,7 +10,7 @@ describe('budget Items reducer', () => {
       name: 'Total Budget',
       initialAmount: 1000,
       currentAmount: 1000,
-      parentBudget: -1,
+      parentBudgetId: -1,
       canHaveChildren: true,
     },
     ])
@@ -22,7 +22,7 @@ describe('budget Items reducer', () => {
         type: types.ADD_BUDGET_ITEM,
         name: 'test start',
         initialAmount: 100,
-        parentBudget: -1,
+        parentBudgetId: -1,
         canHaveChildren: true,
       })
     ).toEqual([
@@ -30,7 +30,7 @@ describe('budget Items reducer', () => {
         name: 'test start',
         initialAmount: 100,
         currentAmount: 100,
-        parentBudget: -1,
+        parentBudgetId: -1,
         canHaveChildren: true,
         id: 0,
       }
@@ -42,7 +42,7 @@ describe('budget Items reducer', () => {
           name: 'test start',
           initialAmount: 100,
           currentAmount: 100,
-          parentBudget: -1,
+          parentBudgetId: -1,
           id: 0,
           canHaveChildren: true,
         }
@@ -50,7 +50,7 @@ describe('budget Items reducer', () => {
           type: types.ADD_BUDGET_ITEM,
           name: 'test charge',
           initialAmount: -25,
-          parentBudget: 0,
+          parentBudgetId: 0,
           canHaveChildren: false,
         })
     ).toEqual([
@@ -58,7 +58,7 @@ describe('budget Items reducer', () => {
         name: 'test start',
         initialAmount: 100,
         currentAmount: 75,
-        parentBudget: -1,
+        parentBudgetId: -1,
         id: 0,
         canHaveChildren: true,
       },
@@ -66,7 +66,7 @@ describe('budget Items reducer', () => {
         name: 'test charge',
         initialAmount: -25,
         currentAmount: -25,
-        parentBudget: 0,
+        parentBudgetId: 0,
         id: 1,
         canHaveChildren: false,
       }
@@ -80,7 +80,7 @@ describe('budget Items reducer', () => {
           name: 'test start',
           initialAmount: 100,
           currentAmount: 75,
-          parentBudget: -1,
+          parentBudgetId: -1,
           id: 0,
           canHaveChildren: true,
         },
@@ -88,7 +88,7 @@ describe('budget Items reducer', () => {
           name: 'test charge',
           initialAmount: -25,
           currentAmount: -25,
-          parentBudget: 0,
+          parentBudgetId: 0,
           id: 1,
           canHaveChildren: false,
         }
@@ -101,7 +101,7 @@ describe('budget Items reducer', () => {
         name: 'test start',
         initialAmount: 100,
         currentAmount: 100,
-        parentBudget: -1,
+        parentBudgetId: -1,
         id: 0,
         canHaveChildren: true,
       }
@@ -115,7 +115,7 @@ describe('budget Items reducer', () => {
           name: 'test start',
           initialAmount: 100,
           currentAmount: 75,
-          parentBudget: -1,
+          parentBudgetId: -1,
           id: 0,
           canHaveChildren: true,
         },
@@ -123,7 +123,7 @@ describe('budget Items reducer', () => {
           name: 'test charge',
           initialAmount: -25,
           currentAmount: -25,
-          parentBudget: 0,
+          parentBudgetId: 0,
           id: 1,
           canHaveChildren: true,
         }
@@ -131,7 +131,7 @@ describe('budget Items reducer', () => {
           type: types.EDIT_BUDGET_ITEM,
           name: 'test fund',
           initialAmount: 35,
-          parentBudget: 0,
+          parentBudgetId: 0,
           id: 1,
           canHaveChildren: true,
         })
@@ -140,7 +140,7 @@ describe('budget Items reducer', () => {
         name: 'test start',
         initialAmount: 100,
         currentAmount: 135,
-        parentBudget: -1,
+        parentBudgetId: -1,
         id: 0,
         canHaveChildren: true,
       },
@@ -148,7 +148,7 @@ describe('budget Items reducer', () => {
         name: 'test fund',
         initialAmount: 35,
         currentAmount: 35,
-        parentBudget: 0,
+        parentBudgetId: 0,
         id: 1,
         canHaveChildren: true,
       }
