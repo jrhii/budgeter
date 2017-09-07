@@ -10,7 +10,6 @@ const mapStateToProps = state => {
     const childBudgetArray = state.budgetItems.filter(budget => budget.parentBudgetId === currentBudget.id);
 
     return {
-        // budgetItems: state.budgetItems,
         currentBudget,
         parentBudgetArray,
         childBudgetArray,
