@@ -2,9 +2,9 @@ import * as actions from './index';
 import * as types from '../constants/ActionTypes';
 
 describe('actions', () => {
-    test('should addChildBudget', () => {
+    test('should addBudgetItem', () => {
         expect(
-            actions.addChildBudget('test child', 1000, -1)
+            actions.addBudgetItem('test child', 1000, -1, true)
         ).toEqual({
             type: types.ADD_BUDGET_ITEM,
             name: 'test child',
@@ -15,20 +15,20 @@ describe('actions', () => {
         );
     });
 
-    test('should addBudgetItem', () => {
-        expect(
-            actions.addBudgetItem('test item', -25, 2)
-        ).toEqual({
-            type: types.ADD_BUDGET_ITEM,
-            name: 'test item',
-            initialAmount: -25,
-            parentBudgetId: 2,
-            canHaveChildren: false,
-        });
-        // expect(
-        //     actions.addBudgetItem('test item', -25, -1)
-        // ).toThrowError();
-    });
+    // test('should addBudgetItem', () => {
+    //     expect(
+    //         actions.addBudgetItem('test item', -25, 2)
+    //     ).toEqual({
+    //         type: types.ADD_BUDGET_ITEM,
+    //         name: 'test item',
+    //         initialAmount: -25,
+    //         parentBudgetId: 2,
+    //         canHaveChildren: false,
+    //     });
+    //     // expect(
+    //     //     actions.addBudgetItem('test item', -25, -1)
+    //     // ).toThrowError();
+    // });
 
     test('should editBudget', () => {
         expect(

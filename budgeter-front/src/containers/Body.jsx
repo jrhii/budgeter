@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import RootBudgetHeader from '../components/RootBudgetHeader';
 import ChildBudgetList from '../components/ChildBudgetList';
 import { connect } from 'react-redux';
-import {setCurrentBudget, addBudgetItem} from '../actions';
+import {setCurrentBudget, addBudgetItem, editBudget} from '../actions';
 import PropTypes from 'prop-types';
 
 const mapStateToProps = state => {
@@ -23,13 +23,13 @@ const mapDispatchToProps = dispatch => {
             dispatch(setCurrentBudget(id));
         },
         editBudget: (id, name, initialAmount) => {
-            dispatch(id, name, initialAmount);
+            dispatch(editBudget(id, name, initialAmount));
         },
         onBudgetClick: id => {
             dispatch(setCurrentBudget(id));
         },
-        onAddBudget: (name, amount, currentBudget) => {
-            dispatch(addBudgetItem(name, amount, currentBudget));
+        addBudget: (name, amount, currentBudgetId, canHaveChildren) => {
+            dispatch(addBudgetItem(name, amount, currentBudgetId, canHaveChildren));
         },
     };
 };
@@ -64,15 +64,16 @@ export class Body extends Component {
         ).isRequired,
         setCurrentBudget: PropTypes.func.isRequired,
         editBudget: PropTypes.func.isRequired,
+        addBudget: PropTypes.func.isRequired,
     }
 
     render() {
-        const {currentBudget, parentBudgetArray, setCurrentBudget, editBudget} = this.props;
+        const {currentBudget, parentBudgetArray, childBudgetArray, setCurrentBudget, editBudget, addBudget} = this.props;
 
         return (
             <div className="body">
                 <RootBudgetHeader rootBudget={currentBudget} parentBudgetArray={parentBudgetArray} selectBudget={setCurrentBudget} editBudget={editBudget}/>
-                <ChildBudgetList />
+                <ChildBudgetList parentBudgetId={currentBudget.id} childBudgetArray={childBudgetArray} selectBudget={setCurrentBudget} addBudget={addBudget}/>
             </div>
         );
     }

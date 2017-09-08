@@ -52,7 +52,9 @@ describe('RootBudgetHeader', () => {
 
         expect(enzymeWrapper.find('div#root-budget-edit-box').exists()).toBeFalsy();
         enzymeWrapper.find('button#root-budget-edit').simulate('click');
-        expect(enzymeWrapper.find('div#root-budget-edit-box').exists()).toBeTruthy();
-        
+        expect(enzymeWrapper.find('form#root-budget-edit-box').exists()).toBeTruthy();
+        expect(enzymeWrapper.find('input#root-budget-edit-name').prop('value')).toBe('Sub Budget');
+        expect(enzymeWrapper.find('input#root-budget-edit-amount').prop('value')).toBe(1000);
+        expect(enzymeWrapper.find('input#root-budget-edit-submit').exists()).toBeTruthy;        
     });
 });

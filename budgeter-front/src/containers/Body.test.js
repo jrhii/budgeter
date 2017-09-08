@@ -23,10 +23,28 @@ function setup() {
         parentBudgetId: -1,
         canHaveChildren: true,
     }];
+    const childBudgetArray = [
+        {
+            id: 1,
+            name: 'Sub Budget 1',
+            initialAmount: 1500,
+            currentAmount: 500,
+            parentBudgetId: 0,
+            canHaveChildren: true,
+        },
+        {
+            id: 2,
+            name: 'Sub Budget 2',
+            initialAmount: 100,
+            currentAmount: 100,
+            parentBudgetId: 0,
+            canHaveChildren: true,
+        },
+    ];
     const setCurrentBudget = jest.fn();
     const editBudget = jest.fn();
 
-    const enzymeWrapper = mount(<Body currentBudget={currentBudget} parentBudgetArray={parentBudgetArray} setCurrentBudget={setCurrentBudget} editBudget={editBudget}/>);
+    const enzymeWrapper = mount(<Body currentBudget={currentBudget} parentBudgetArray={parentBudgetArray} childBudgetArray={childBudgetArray} setCurrentBudget={setCurrentBudget} editBudget={editBudget}/>);
 
     return {
         enzymeWrapper,

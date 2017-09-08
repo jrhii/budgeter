@@ -29,10 +29,15 @@ class RootBudgetHeader extends Component {
 
         this.state = {
             renderEditBox: false,
+            editableName: this.props.rootBudget.name,
+            editableAmount: this.props.rootBudget.initialAmount,
+
         };
 
         this.changeBudget = this.changeBudget.bind(this);
         this.toggleEditBox = this.toggleEditBox.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.submitEdit = this.submitEdit.bind(this);
     }
 
     changeBudget(event) {
@@ -41,14 +46,29 @@ class RootBudgetHeader extends Component {
         this.props.selectBudget(id);
     }
 
-    toggleEditBox(event) {
+    submitEdit(event) {
+        const {editableName, editableAmount} = this.state;
+
+        console.log(editableAmount, editableName);
+
+        this.props.editBudget(this.props.rootBudget.id, editableName, parseInt(editableAmount,10));
+        this.setState({renderEditBox: false});
+        event.preventDefault();
+    }
+
+    toggleEditBox() {
         this.setState(prevState => ({renderEditBox : !prevState.renderEditBox}));
     }
 
-    render() {
-        const {rootBudget, parentBudgetArray, editBudget} = this.props;
+    onChange(event) {
+        this.setState({
+            [event.target.name]: event.target.value,
+        });
+    }
 
-        console.log('parent Budgets: ', parentBudgetArray);
+    render() {
+        const {rootBudget, parentBudgetArray} = this.props;
+        const {editableName, editableAmount} = this.state;
 
         return (
             <div className="root-budget-header">
@@ -66,12 +86,16 @@ class RootBudgetHeader extends Component {
                 <div className="root-budget">
                     <p id="root-budget-name">Current Budget: {rootBudget.name}</p>
                     <p id="root-budget-init-amount">Total Funds: {rootBudget.initialAmount}</p>
-                    <p id="root-budget-current-amount">Unalloted Funds: {rootBudget.currentAmount}</p>
+                    <p id="root-budget-current-amount">Unallotted Funds: {rootBudget.currentAmount}</p>
                     <button id="root-budget-edit" key={rootBudget.id} onClick={this.toggleEditBox}>Edit</button>
                 </div>
                 {
                     this.state.renderEditBox ? 
-                        <div id="root-budget-edit-box">EDIT BOX HERE</div> :
+                        <form id="root-budget-edit-box" onSubmit={this.submitEdit}>
+                            <input type="text" id="root-budget-edit-name" placeholder="Name" name="editableName" value={editableName} onChange={this.onChange} />
+                            <input type="number" id="root-budget-edit-amount" placeholder="Amount" name="editableAmount" value={editableAmount} onChange={this.onChange} />
+                            <input type="submit" id="root-budget-edit-submit" value="Submit" />
+                        </form> :
                         null
                 }
             </div>
