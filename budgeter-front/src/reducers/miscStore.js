@@ -5,13 +5,11 @@ const initialState = {
 };
 
 export default function miscStore(state = initialState, action) {
+
     switch (action.type) {
-        case SET_CURRENT_BUDGET:
-            return {
-                ...state,
-                currentBudgetId: action.currentBudgetId,
-            };
-        default:
-            return state;
+    case SET_CURRENT_BUDGET:
+        return Object.assign({}, state, {currentBudgetId: action.currentBudgetId});
+    default:
+        return state;
     }
-};
+}

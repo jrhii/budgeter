@@ -20,7 +20,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         setCurrentBudget: id => {
+            console.log({id});
             dispatch(setCurrentBudget(id));
+            console.log('donzo');
         },
         editBudget: (id, name, initialAmount) => {
             dispatch(editBudget(id, name, initialAmount));
@@ -34,7 +36,7 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-function filterParents(currentBudget, budgetArray) {
+function filterParents(currentBudget, budgetArray) {    
     const parentBudgetArray = [];
 
     while (currentBudget.parentBudgetId >= 0) {
@@ -69,6 +71,8 @@ export class Body extends Component {
 
     render() {
         const {currentBudget, parentBudgetArray, childBudgetArray, setCurrentBudget, editBudget, addBudget} = this.props;
+
+        console.log(currentBudget);
 
         return (
             <div className="body">

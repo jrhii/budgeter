@@ -30,6 +30,7 @@ class ChildBudgetList extends Component {
         this.addBudget = this.addBudget.bind(this);
         this.onChange = this.onChange.bind(this);
         this.changeBudget = this.changeBudget.bind(this);
+        this.setAmount = this.setAmount.bind(this);
     }
 
     toggleAddBudgetForm() {
@@ -49,16 +50,22 @@ class ChildBudgetList extends Component {
         });
     }
 
+    setAmount(event) {
+        const amount = parseInt(event.target.value, 10);
+
+        this.setState({
+            amount,
+        });
+    }
+
     changeBudget(event) {
-        const id = parseInt(event.target.key, 10);
-        
+        const id = parseInt(event.target.value, 10);
+
         this.props.selectBudget(id);
     }
 
     render() {
         const { childBudgetArray } = this.props;
-
-        console.log(this.state);
 
         return (
             <div className="child-budget-list">
@@ -67,15 +74,15 @@ class ChildBudgetList extends Component {
                     this.state.renderAddBudgetForm ?
                         <form id="add-budget-form" onSubmit={this.addBudget}>
                             <input type="text" id="add-budget-form-name" name="name" placeholder="Name" value={this.state.name} onChange={this.onChange}/>
-                            <input type="number" id="add-budget-form-amount" name="amount" placeholder="Amount" value={this.state.amount} onChange={this.onChange}/>
+                            <input type="number" id="add-budget-form-amount" name="amount" placeholder="Amount" value={this.state.amount} onChange={this.setAmount}/>
                             <input type="submit" id="add-budget-form-submit" value="Submit" />
                         </form>
                         : null
                 }
                 <ul className="list">
                     {childBudgetArray.map((budget) => 
-                        <div className="child-budget" id={`budget-${budget.id}`}>
-                            <button className="child-budget-name" key={budget.id} onClick={this.changeBudget}>
+                        <div className="child-budget" key={`budget-${budget.id}`}>
+                            <button className="child-budget-name" value={budget.id} onClick={this.changeBudget}>
                                 {budget.name}
                             </button>
                             <p className="child-budget-initial-amount">{budget.initialAmount}</p>
