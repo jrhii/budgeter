@@ -41,15 +41,13 @@ class RootBudgetHeader extends Component {
     }
 
     changeBudget(event) {
-        const id = parseInt(event.target.key, 10);
+        const id = parseInt(event.target.value, 10);
 
         this.props.selectBudget(id);
     }
 
     submitEdit(event) {
         const {editableName, editableAmount} = this.state;
-
-        console.log(editableAmount, editableName);
 
         this.props.editBudget(this.props.rootBudget.id, editableName, parseInt(editableAmount,10));
         this.setState({renderEditBox: false});
@@ -76,7 +74,7 @@ class RootBudgetHeader extends Component {
                     {
                         parentBudgetArray.map(budget => {
                             return (
-                                <button className="parent-budget" id={`budget-${budget.id}`} key={budget.id} onClick={this.changeBudget}>
+                                <button className="parent-budget" id={`budget-${budget.id}`} value={budget.id} key={budget.id} onClick={this.changeBudget}>
                                     {budget.name}
                                 </button>
                             );

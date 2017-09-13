@@ -20,9 +20,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         setCurrentBudget: id => {
-            console.log({id});
             dispatch(setCurrentBudget(id));
-            console.log('donzo');
         },
         editBudget: (id, name, initialAmount) => {
             dispatch(editBudget(id, name, initialAmount));
@@ -39,8 +37,11 @@ const mapDispatchToProps = dispatch => {
 function filterParents(currentBudget, budgetArray) {    
     const parentBudgetArray = [];
 
-    while (currentBudget.parentBudgetId >= 0) {
-        parentBudgetArray.push(budgetArray.find(budget => budget.id === currentBudget.parentBudgetId));
+    let workingBudget = currentBudget;
+
+    while (workingBudget.parentBudgetId >= 0) {
+        workingBudget = budgetArray.find(budget => budget.id === workingBudget.parentBudgetId);
+        parentBudgetArray.push(workingBudget);
     }
 
     return parentBudgetArray;
@@ -64,6 +65,15 @@ export class Body extends Component {
                 parentBudgetId: PropTypes.number.isRequired,
             }).isRequired
         ).isRequired,
+        childBudgetArray: PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.number.isRequired,
+                initialAmount: PropTypes.number.isRequired,
+                currentAmount: PropTypes.number.isRequired,
+                name: PropTypes.string.isRequired,
+                parentBudgetId: PropTypes.number.isRequired,
+            }).isRequired
+        ).isRequired,
         setCurrentBudget: PropTypes.func.isRequired,
         editBudget: PropTypes.func.isRequired,
         addBudget: PropTypes.func.isRequired,
@@ -71,8 +81,6 @@ export class Body extends Component {
 
     render() {
         const {currentBudget, parentBudgetArray, childBudgetArray, setCurrentBudget, editBudget, addBudget} = this.props;
-
-        console.log(currentBudget);
 
         return (
             <div className="body">

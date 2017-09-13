@@ -63,6 +63,6 @@ export default function budgetItems(state = initialState, action) {
         return rebuildAmountField(action.id, budgetList);
 
     default:
-        return state
+        return state;
     }
 }
