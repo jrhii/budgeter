@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import '../styles/components/RootBudgetHeader.css';
 
 class RootBudgetHeader extends Component {
 
@@ -68,13 +69,20 @@ class RootBudgetHeader extends Component {
         const {rootBudget, parentBudgetArray} = this.props;
         const {editableName, editableAmount} = this.state;
 
+        // const greenBlue = [255, 128, 0];
+        const greenBlue = ['#00FF00', '#00FF80', '#00FFFF', '#0080FF', '#0000FF'];
+        
+
         return (
             <div className="root-budget-header">
                 <div id="parent-budget-bar">
                     {
                         parentBudgetArray.map(budget => {
+                            const id = budget.id;
+                            const color = id < 4 ? greenBlue[id] : greenBlue[4];
+                                
                             return (
-                                <button className="parent-budget" id={`budget-${budget.id}`} value={budget.id} key={budget.id} onClick={this.changeBudget}>
+                                <button style={{backgroundColor: color}} className="parent-budget" id={`budget-${id}`} value={id} key={id} onClick={this.changeBudget}>
                                     {budget.name}
                                 </button>
                             );
