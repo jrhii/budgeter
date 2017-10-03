@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nf start"
+    "nfstart": "nf start",
+    "babel-watch": "babel-watch src/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +14,7 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.0",
+    "babel-watch": "^2.0.7",
     "foreman": "^2.0.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",

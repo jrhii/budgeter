@@ -7,24 +7,24 @@ function swallow(error) {
 	this.emit('end');
 }
 
-const SOURCE_FILES_JS = ['server/src/**/*.{js,jsx}'];
-const SOURCE_FILES_OTHER = ['server/src/**/*.{html,tag}'];
+const SOURCE_FILES_JS = ['src/**/*.{js,jsx}'];
+const SOURCE_FILES_OTHER = ['src/**/*.{html,tag}'];
 const TEST_FILES_JS = ['test/src/**/*.js'];
 
 gulp.task('babel', ['other'], function() {
 	return gulp.src(SOURCE_FILES_JS)
 		.pipe(babel())
 		.on('error', swallow)
-		.pipe(gulp.dest('server/dist'));
+		.pipe(gulp.dest('dist'));
 });
 
 gulp.task('other', function() {
 	gulp.src(SOURCE_FILES_OTHER)
-	.pipe(gulp.dest('server/dist'));
+	.pipe(gulp.dest('dist'));
 });
 
 gulp.task('watch', ['babel'], function() {
-	gulp.watch('server/src/**/*', ['babel']);
+	gulp.watch('src/**/*', ['babel']);
 });
 
 gulp.task('test', function() {
